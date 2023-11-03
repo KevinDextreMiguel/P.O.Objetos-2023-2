@@ -1,3 +1,5 @@
+from Hora import*
+
 def opciones():
   opc = -1
   print('\n===========================')
