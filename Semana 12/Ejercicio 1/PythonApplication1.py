@@ -1,68 +1,59 @@
-from ListaCuenta import*
-
-def pedir_datos():
-      dni = '0'
-      monto = 0
-      while len(dni) != 8:
-        dni = input('DNI: ')
-      nombre = input('Nombres: ')
-      apellidos = input('apellidos: ')
-      distrito = input('Distrito: ')
-      telefono = input('Telefono: ')
-      while monto < 1:
-        monto = float(input('Saldo: '))
-    
-      objeto = CuentaCorriente(dni,nombre,apellidos,distrito,telefono,monto)
-      return objeto
-
+from ListaCuentas import*
 
 def opciones():
-  opc = -1
-  while opc <1 or opc>7:
-    print('1. Ingresar datos')
-    print('2. Realizar una transferencia')
-    print('3. Promedio por distrito')
-    print('4. Mostrar por inicial de apellido')
-    print('5. Ver datos de las o la persona con saldo mayor')
-    print('6. Mostrar datos')
+    opc=-1
+    print('=================================================')
+    print('1. Insertar cuenta')
+    print('2. Realizar transeferencia')
+    print('3. Saldo promedio por distrito')
+    print('4. Mostrar por inicial del apellido')
+    print('5. Ver personas con saldo mayor')
+    print('6. Imprimir datos')
     print('7. Salir')
-    opc = int(input('Opcion?: '))
+    while opc<1 or opc>7:
+        opc = int(input('opcion: '))
 
-  return opc
-
-
-
-
-def realizar_consultas():
-  objListaCuenta=ListaCuentas()
-  opc = -1
-  while opc != 7:
-    print('==========Siguiente operacion===========')
-    opc = opciones()
-    if opc != 7:
-      if opc == 1:
-        objListaCuenta.InsertarCuenta(pedir_datos())
-      elif opc == 2:
-        dni_emisor = input('DNI emisor: ')
-        monto = float(input('Monto a transferir: '))
-        dni_receptor = input('DNI receptor: ')
-        objListaCuenta.realizar_transferencia(dni_emisor,dni_receptor,monto)
-      elif opc == 3:
-        distrito = input('Distrito?: ')
-        objListaCuenta.saldo_promedio_distrito(distrito)
-      elif opc == 4:
-        apellidos = input('Apellido?: ')
-        objListaCuenta.apellido_letra(apellidos)
-      elif opc == 5:
-        objListaCuenta.mayor_saldo()
-      else:
-        objListaCuenta.imprimir()
+    return opc
 
 
+def pedirDatos():
+    dni=''
+    monto=0
+    while len(dni)!=8:
+        dni=input('dni: ')
+    nombres=input('nombres: ')
+    apellidos=input('apellidos:')
+    distrito=input('distrito:')
+    telefono=input('telefono:')
+    while monto<1:
+        monto=float(input('monto:'))
+        
+    objetoCuenta=CuentaCorriente(dni,nombres,apellidos,distrito,telefono,monto)
+    return objetoCuenta
+    
 
-
-
-
-
+def realizarConsultas():
+    objListaContactos = ListaCuenta()
+    opc=-1
+    while opc!=7:
+        opc=opciones()
+        if opc==1:
+            objListaContactos.insertarCuenta(pedirDatos())
+        elif opc==2:
+            dniEmisor=input('Dni emisor: ')
+            dniReceptor=input('Dni receptor: ')
+            monto=int(input('monto: '))
+            objListaContactos.realizarTRansferencia(dniEmisor,dniReceptor,monto)           
+        elif opc==3:
+            distrito=input('distrito: ')
+            objListaContactos.SaldoPromedioDistrito(distrito)
+        elif opc==4:
+            apellido=input('apellido: ')
+            objListaContactos.DatosAppellidoInicial(apellido)
+        elif opc==5:
+            objListaContactos.PersonasSaldoMayor()
+        elif opc==6:
+            objListaContactos.MostrarTodos()
+       
 #main
-realizar_consultas()
+realizarConsultas()
